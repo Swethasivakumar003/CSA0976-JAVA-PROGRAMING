@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+class Table
+{
+void printTable(int n)
+{
+synchronized(this)
+{
+for(int i=1;i<=5;i++)
+{
+System.out.println(+n+"*"+i+"="+(n*i));
+try
+{
+Thread.sleep(500);
+}
+catch(Exception e)
+{
+System.out.println("INVALID");
+}
+}
+}
+}
+}
+class Mythread1 extends Thread
+{
+Table a;
+Mythread1(Table a)
+{
+this.a=a;
+}
+public void run()
+{
+	a.printTable(5);
+}
+}
+class Mythread2 extends Thread
+{
+Table a;
+Mythread2(Table a)
+{
+this.a=a;
+}
+public void run()
+{
+	a.printTable(10);
+}
+}
+class t
+{public static void main(String args[])
+{
+Table obj=new Table();
+Mythread1 th1=new Mythread1(obj);
+Mythread2 th2=new Mythread2(obj);
+th1.start();
+th2.start();
+}
+}
